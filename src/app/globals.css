@@ -503,13 +503,13 @@
   .chat-bubble-sent {
     background: linear-gradient(135deg, #3A7FD5 0%, #5295E8 100%);
     color: white;
-    border-radius: 18px 18px 4px 18px;
-    padding: 0.75rem 1.1rem;
-    max-width: 72%;
+    border-radius: 16px 16px 4px 16px;
+    padding: 0.55rem 0.9rem;
+    max-width: 65%;
     margin-left: auto;
-    font-size: 0.875rem;
-    line-height: 1.55;
-    box-shadow: 0 3px 12px rgba(58, 127, 213, 0.22);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    box-shadow: 0 3px 12px rgba(58, 127, 213, 0.18);
     word-break: break-word;
   }
 
@@ -517,12 +517,12 @@
     background: #ffffff;
     border: 1.5px solid rgba(58, 127, 213, 0.10);
     color: #1A2B4A;
-    border-radius: 18px 18px 18px 4px;
-    padding: 0.75rem 1.1rem;
-    max-width: 72%;
-    font-size: 0.875rem;
-    line-height: 1.55;
-    box-shadow: 0 2px 8px rgba(26, 43, 74, 0.07);
+    border-radius: 16px 16px 16px 4px;
+    padding: 0.55rem 0.9rem;
+    max-width: 65%;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    box-shadow: 0 2px 8px rgba(26, 43, 74, 0.05);
     word-break: break-word;
   }
 

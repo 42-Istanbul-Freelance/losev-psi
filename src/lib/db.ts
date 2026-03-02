@@ -1,13 +1,12 @@
 /**
  * Database module — SQLite via better-sqlite3
- * Database file: dev.db (project root)
+ * DB path: DB_PATH env değişkeni varsa onu kullan, yoksa proje kökündeki dev.db
  */
 import Database from 'better-sqlite3';
 import path from 'path';
 
-const DB_PATH = path.join(process.cwd(), 'dev.db');
+const DB_PATH = process.env.DB_PATH ?? path.join(process.cwd(), 'dev.db');
 
-// Singleton connection
 let _db: Database.Database | null = null;
 
 export function getDb(): Database.Database {

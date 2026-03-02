@@ -1,27 +1,26 @@
-FROM node:18-alpine AS base
+FROM node:20-slim AS base
 
-# Install dependencies only when needed
+# ── Deps stage ──────────────────────────────────────────────────────────────
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Rebuild the source code only when needed
+# ── Builder stage ────────────────────────────────────────────────────────────
 FROM base AS builder
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
-# Production image, copy all the files and run next
+# ── Runner stage (production) ────────────────────────────────────────────────
 FROM base AS runner
 WORKDIR /app
 
@@ -33,14 +32,21 @@ RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 
-# Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
-# Automatically leverage output traces to reduce image size
-# https://nextjs.org/docs/advanced-features/output-file-tracing
+# SQLite veritabanı için kalıcı dizin
+RUN mkdir -p /app/data && chown nextjs:nodejs /app/data
+
+# Standalone output
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Custom server.js (Socket.io entegrasyonu için) — standalone server.js'i override eder
+COPY --from=builder --chown=nextjs:nodejs /app/server.js ./server.js
+
+# Tüm node_modules'u kopyala (standalone trace eksiklerini önlemek için)
+COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 USER nextjs
 
@@ -48,5 +54,7 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+# SQLite DB'yi /app/data altına yönlendir (volume ile persist edilir)
+ENV DB_PATH=/app/data/dev.db
 
 CMD ["node", "server.js"]

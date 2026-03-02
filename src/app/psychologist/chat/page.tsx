@@ -273,7 +273,7 @@ export default function PsychologistChatPage() {
                                                     {group.date}
                                                 </div>
                                             </div>
-                                            <div className="space-y-3">
+                                            <div className="space-y-2">
                                                 {group.msgs.map(msg => {
                                                     const isMine = msg.sender_id === user?.id;
                                                     const mood = MOOD_OPTIONS.find(m => m.label === msg.mood_label);

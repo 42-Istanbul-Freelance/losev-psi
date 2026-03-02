@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+*.md
+npm-debug.log*
+.env*
+dev.db
+dev.db-shm
+dev.db-wal
