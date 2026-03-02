@@ -1,0 +1,15 @@
+MOCK SESSION VIDEO PLACEHOLDER
+=================================
+
+This file serves as a placeholder for the actual MP4 video file.
+
+INSTRUCTIONS FOR CLIENT:
+1. Replace this file with the actual MP4 recording provided by the client
+2. The file should be named: mock-session.mp4
+3. Place it in the /public/ directory
+4. The video will be auto-played on the session page at /member/session/:appointmentId
+
+The video player is already configured at:
+  src/app/member/session/[appointmentId]/page.tsx
+
+It references: /mock-session.mp4
