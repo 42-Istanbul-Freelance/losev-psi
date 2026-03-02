@@ -1,44 +1,54 @@
-# 42 İstanbul Freelance Vibe Coding - Boilerplate (Starter Kit)
+# 🏥 LÖSEV PSİ - Psikolojik Destek Platformu
 
-Bu proje **42 İstanbul Freelance Vibe Coding Hackathon**'unda katılımcılara hızlı bir başlangıç noktası sağlamak amacıyla "Boş sayfa sendromunu (Blank page syndrome)" önlemek için hazırlanmıştır.
+LÖSEV PSİ, kanser tedavisi gören çocuklar ve ailelerine yönelik, psikologlar ile güvenli ve sıcak bir iletişim kurmalarını sağlayan bir destek platformudur. Bu platform, zorlu tedavi süreçlerinde ailelerin kendilerini yalnız hissetmemeleri ve profesyonel destek alabilmeleri için tasarlanmıştır.
 
-## 🤖 AI ile Nasıl Kodlanır? (Agent Plan)
-Geleneksel kodlama yapmayın, AI kod asistanlarının potansiyelini "Agent Plan" sistemi ile 10 katına çıkarın:
+## 🌟 Kim Ne Yapabilir? (Platform Rolleri)
 
-1. **Bağlamı Devret (Handoff):** Yeni bir chat açtığınızda AI'a klasördeki planları okumasını söyleyin:
-   > `docs/agent_plan/HANDOFF_PROMPT.md dosyasını okuyarak projenin neresinde kaldığımızı anla ve sıradaki görevi bularak işleme başla.`
+Platformda üç temel kullanıcı grubu bulunmaktadır:
 
-2. **Görev Bazlı İlerleme:** Her yeni özelliği `docs/agent_plan/00X_GOREV_ADI.md` formatında (**000_SABLON_GOREV.md** dosyasına uygun olarak) planlayarak AI'a verin.
+### 1. Hasta ve Aile Üyeleri (Üyeler)
+Tedavi gören kahramanlar ve onlara destek olan aile üyeleri için tasarlanan bu bölümde şunları yapabilirsiniz:
+- **Güvenli Sohbet:** Psikoloğunuzla dertleşebilir, aklınızdaki soruları dilediğiniz zaman sorabilirsiniz. Mesajlarınız sadece psikoloğunuz tarafından görülür.
+- **Duygu Durumu (Mood) Paylaşımı:** Gün içinde nasıl hissettiğinizi emojilerle seçerek psikoloğunuzun sizi daha iyi anlamasını sağlayabilirsiniz.
+- **Zor Gün Desteği:** Kendinizi çok bunalmış hissettiğinizde "Bugün Zor Bir Gün" özelliğini kullanarak hızlıca destek alabilirsiniz.
+- **Kaynak Merkezi:** Sizin için hazırlanmış bilgilendirici makalelere ve videolara ulaşabilirsiniz.
 
-3. **Kaldığın Yerden Devam Et (`npm run ai:next`):** Terminalden bu komutu çalıştırarak bir sonraki görev için hazır prompt'u alın ve AI'a yapıştırın. Sohbet geçmişinizi kaybetseniz bile kodlamaya anında devam edebilirsiniz!
+### 2. Psikologlar
+Ailelerin yanında olan profesyoneller için:
+- **Aile Takibi:** Kendisine atanan ailelerin ve üyelerin durumlarını, son mesajlarını ve paylaştıkları duyguları tek bir panelden görür.
+- **Sohbet Yönetimi:** Üyelerle birebir iletişim kurar, seanslar arası desteği sürdürür.
+- **İstatistikler:** Ailelerin genel modlarını ve gelişim süreçlerini gözlemleyebilir.
 
-## Teknoloji Yığıtı (Tech Stack)
-- Next.js (App Router)
-- TailwindCSS
-- TypeScript
-- Docker & Docker Compose
+### 3. Yöneticiler (Admin)
+Platformun düzeninden sorumlu ekip:
+- **Kullanıcı Yönetimi:** Yeni psikolog, aile ve hasta kayıtlarını oluşturur.
+- **Aile Atamaları:** Hangi ailenin hangi psikologdan destek alacağını belirler.
+- **Sistem İstatistikleri:** Platformun genel kullanım durumunu ve aktiflik seviyesini takip eder.
 
-## Kurulum ve Çalıştırma
+## 🚀 Hızlı Başlangıç
 
-### Yerel Geliştirme (Local Development)
-Projeyi cihazınızda çalıştırmak için:
-
-```bash
-npm install
-npm run dev
-```
-Uygulama **http://localhost:3000** üzerinde ulaşılabilir olacaktır.
-
-### Docker ile Çalıştırma
-Projeyi hızlıca production-ready bir konteynerda çalıştırmak için:
+Projeyi kendi bilgisayarınızda veya sunucunuzda çalıştırmak için Docker kullanmanız yeterlidir.
 
 ```bash
-docker-compose up --build
+# Projeyi çalıştırın
+sudo docker-compose up --build
 ```
+*Not: Veritabanı ilk açılışta otomatik olarak kurulur ve test kullanıcılarını (Admin, Psikolog, Ahmet ve Anne) otomatik olarak ekler.*
 
-## Hackathon İpuçları
-1. **Intra:** Projeni intra.42freelance.com adresine yüklemeyi unutma.
-2. **Yardım İste:** Takıldığın yerde "Needs Help" (Yardım Lazım) butonuyla diğer masalardan yardım talep et.
-3. **Sorun Çöz:** Kusursuz kod yazmaya değil, sadece sorunu çözecek MVP (Minimum Viable Product)'yi çıkartmaya odaklan. Sürdürülebilirlik ve DevOps maliyetleri **42 İstanbul Freelance** tarafından üstlenilmiştir.
+## 🔑 Test Hesapları
 
-*Sistem aktif, boot sekansı tamamlandı. Hemen üretmeye başla.* 🚀
+Platformu hemen deneyebilmeniz için hazır olan kullanıcılar:
+
+- **Yönetici:** `admin@losev.org` (Şifre: 123456)
+- **Psikolog:** `psikolog@losev.org` (Şifre: 123456)
+- **Hasta (Ahmet):** `ahmet@losev.org` (Şifre: 123456)
+- **Aile Üyesi (Anne):** `anne@losev.org` (Şifre: 123456)
+
+## ✨ Öne Çıkan Özellikler
+
+- **Şifreli İletişim:** Mesajlar gizlilik standartlarına uygun olarak korunur.
+- **Sıcak Tasarım:** LÖSEV ruhuna uygun, sakinleştirici ve güven veren renk paleti.
+- **Mobil Uyumluluk:** Her an her yerden erişim kolaylığı.
+
+---
+*LÖSEV PSİ - Sevgi, İyilik ve Umutla.*
