@@ -125,6 +125,7 @@ export default function OnboardingModal({ role }: OnboardingModalProps) {
     const [current, setCurrent] = useState(0);
     const [direction, setDirection] = useState<'left' | 'right'>('right');
     const [animating, setAnimating] = useState(false);
+    const [dontShowAgain, setDontShowAgain] = useState(false);
 
     // Build role-specific card list
     const allCards = buildCards();
@@ -133,8 +134,8 @@ export default function OnboardingModal({ role }: OnboardingModalProps) {
         : allCards.filter(c => [1, 2, 3, 5].includes(c.id));
 
     useEffect(() => {
-        // Her girişte gösterilsin istendiği için kontrolü kaldırdım
-        setVisible(true);
+        const seen = localStorage.getItem(STORAGE_KEY);
+        if (!seen) setVisible(true);
     }, []);
 
     // Lock body scroll
@@ -148,9 +149,11 @@ export default function OnboardingModal({ role }: OnboardingModalProps) {
     }, [visible]);
 
     const close = useCallback(() => {
-        // Artık localStorage'a kaydetmiyoruz, her login'de tekrar çıkacak
+        if (dontShowAgain) {
+            localStorage.setItem(STORAGE_KEY, 'true');
+        }
         setVisible(false);
-    }, []);
+    }, [dontShowAgain]);
 
     const goTo = useCallback((idx: number, dir: 'left' | 'right') => {
         if (animating || idx < 0 || idx >= cards.length) return;
@@ -230,70 +233,95 @@ export default function OnboardingModal({ role }: OnboardingModalProps) {
                     </div>
                 </div>
 
-                {/* Bottom bar: arrows + dots + CTA */}
-                <div className="px-6 pb-5 flex items-center justify-between gap-3">
-                    {/* Left arrow */}
-                    <button
-                        onClick={prev}
-                        disabled={current === 0}
-                        className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all disabled:opacity-20"
-                        style={{
-                            background: current === 0 ? 'transparent' : 'rgba(58,127,213,0.06)',
-                            borderColor: 'rgba(58,127,213,0.15)',
-                            color: '#3A7FD5',
-                        }}
-                        aria-label="Önceki"
-                    >
-                        <ChevronLeft size={18} />
-                    </button>
-
-                    {/* Dots */}
+                {/* Bottom bar: checkbox + arrows + dots + CTA */}
+                <div className="px-6 py-3 border-t flex flex-col gap-4">
                     <div className="flex items-center gap-2">
-                        {cards.map((_, i) => (
-                            <button
-                                key={i}
-                                onClick={() => goTo(i, i > current ? 'right' : 'left')}
-                                className="transition-all duration-300"
-                                style={{
-                                    width: i === current ? 24 : 8,
-                                    height: 8,
-                                    borderRadius: 99,
-                                    background: i === current
-                                        ? 'linear-gradient(135deg,#3A7FD5,#5295E8)'
-                                        : 'rgba(58,127,213,0.18)',
-                                }}
-                                aria-label={`Kart ${i + 1}`}
-                            />
-                        ))}
+                        <label className="flex items-center gap-2 cursor-pointer group">
+                            <div className="relative flex items-center justify-center">
+                                <input
+                                    type="checkbox"
+                                    checked={dontShowAgain}
+                                    onChange={(e) => setDontShowAgain(e.target.checked)}
+                                    className="peer appearance-none w-5 h-5 rounded-md border-2 transition-all cursor-pointer"
+                                    style={{
+                                        borderColor: 'rgba(58,127,213,0.3)',
+                                        background: dontShowAgain ? '#3A7FD5' : 'transparent',
+                                    }}
+                                />
+                                {dontShowAgain && (
+                                    <svg className="absolute w-3.5 h-3.5 text-white pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                )}
+                            </div>
+                            <span className="text-xs font-bold" style={{ color: '#8097B8' }}>Bir daha gösterme</span>
+                        </label>
                     </div>
 
-                    {/* Right arrow / CTA */}
-                    {isLast ? (
+                    <div className="flex items-center justify-between gap-3">
+                        {/* Left arrow */}
                         <button
-                            onClick={close}
-                            className="h-10 px-5 rounded-xl font-bold text-sm text-white flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
+                            onClick={prev}
+                            disabled={current === 0}
+                            className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all disabled:opacity-20"
                             style={{
-                                background: 'linear-gradient(135deg,#3A7FD5,#5295E8)',
-                                boxShadow: '0 4px 16px rgba(58,127,213,0.35)',
-                            }}
-                        >
-                            <Rocket size={15} />
-                            Hadi Başlayalım
-                        </button>
-                    ) : (
-                        <button
-                            onClick={next}
-                            className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all hover:scale-105"
-                            style={{
-                                background: 'rgba(58,127,213,0.06)',
+                                background: current === 0 ? 'transparent' : 'rgba(58,127,213,0.06)',
                                 borderColor: 'rgba(58,127,213,0.15)',
                                 color: '#3A7FD5',
                             }}
-                            aria-label="Sonraki"
+                            aria-label="Önceki"
                         >
-                            <ChevronRight size={18} />
+                            <ChevronLeft size={18} />
                         </button>
-                    )}
+
+                        {/* Dots */}
+                        <div className="flex items-center gap-2">
+                            {cards.map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => goTo(i, i > current ? 'right' : 'left')}
+                                    className="transition-all duration-300"
+                                    style={{
+                                        width: i === current ? 24 : 8,
+                                        height: 8,
+                                        borderRadius: 99,
+                                        background: i === current
+                                            ? 'linear-gradient(135deg,#3A7FD5,#5295E8)'
+                                            : 'rgba(58,127,213,0.18)',
+                                    }}
+                                    aria-label={`Kart ${i + 1}`}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Right arrow / CTA */}
+                        {isLast ? (
+                            <button
+                                onClick={close}
+                                className="h-10 px-5 rounded-xl font-bold text-sm text-white flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
+                                style={{
+                                    background: 'linear-gradient(135deg,#3A7FD5,#5295E8)',
+                                    boxShadow: '0 4px 16px rgba(58,127,213,0.35)',
+                                }}
+                            >
+                                <Rocket size={15} />
+                                Hadi Başlayalım
+                            </button>
+                        ) : (
+                            <button
+                                onClick={next}
+                                className="w-10 h-10 rounded-xl border flex items-center justify-center transition-all hover:scale-105"
+                                style={{
+                                    background: 'rgba(58,127,213,0.06)',
+                                    borderColor: 'rgba(58,127,213,0.15)',
+                                    color: '#3A7FD5',
+                                }}
+                                aria-label="Sonraki"
+                            >
+                                <ChevronRight size={18} />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

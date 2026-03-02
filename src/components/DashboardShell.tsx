@@ -132,8 +132,6 @@ export default function DashboardShell({ children, requiredRole }: DashboardShel
                 </div>
             </main>
 
-            {/* Onboarding carousel — shows once on first login */}
-            <OnboardingModal role={user.role} />
         </div>
     );
 }

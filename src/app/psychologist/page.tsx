@@ -6,6 +6,7 @@ import { useApi } from '@/hooks/useApi';
 import { useAuth } from '@/contexts/AuthContext';
 import { Calendar, Users, Bell, AlertTriangle, MessageSquare, Plus, ArrowRight, Activity, Zap } from 'lucide-react';
 import Link from 'next/link';
+import OnboardingModal from '@/components/OnboardingModal';
 
 interface Family {
     id: number;
@@ -295,6 +296,7 @@ export default function PsychologistDashboard() {
                     </div>
                 </div>
             </div>
+            <OnboardingModal role={user?.role || 'psychologist'} />
         </DashboardShell>
     );
 }

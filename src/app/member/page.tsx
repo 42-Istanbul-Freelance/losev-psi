@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Calendar, MessageSquare, BookOpen, Star, Play, ArrowRight, Leaf } from 'lucide-react';
 import Link from 'next/link';
 import { HERO_LEVELS } from '@/lib/utils';
+import OnboardingModal from '@/components/OnboardingModal';
 
 interface Appointment { id: number; title: string; scheduled_at: string; type: string; status: string; }
 interface HeroProgress {
@@ -310,6 +311,7 @@ export default function MemberDashboard() {
                 </div>
             )}
 
+            <OnboardingModal role={user?.role || 'patient'} />
         </DashboardShell>
     );
 }

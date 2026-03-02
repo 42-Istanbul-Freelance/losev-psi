@@ -3,11 +3,13 @@
 import { useEffect, useState } from 'react';
 import DashboardShell from '@/components/DashboardShell';
 import { useApi } from '@/hooks/useApi';
+import { useAuth } from '@/contexts/AuthContext';
 import {
     Users, Shield, Calendar, BookOpen, AlertTriangle,
     Heart, TrendingUp, ArrowUpRight, Clock, Activity
 } from 'lucide-react';
 import Link from 'next/link';
+import OnboardingModal from '@/components/OnboardingModal';
 
 interface Stats {
     totalUsers: number; totalPsychologists: number; totalPatients: number;
@@ -16,6 +18,7 @@ interface Stats {
 interface HardDayEvent { id: number; user_name: string; note: string | null; triggered_at: string; }
 
 export default function AdminDashboard() {
+    const { user } = useAuth();
     const { apiFetch } = useApi();
     const [stats, setStats] = useState<Stats | null>(null);
     const [hardDays, setHardDays] = useState<HardDayEvent[]>([]);
@@ -154,6 +157,7 @@ export default function AdminDashboard() {
                     </div>
                 </div>
             </div>
+            <OnboardingModal role={user?.role || 'admin'} />
         </DashboardShell>
     );
 }
