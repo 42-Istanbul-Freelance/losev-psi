@@ -245,7 +245,7 @@ export default function MemberChatPage() {
                     )}
 
                     {/* Input */}
-                    <div className="border-t p-4" style={{ borderColor: 'rgba(42,157,143,0.1)' }}>
+                    <div className="border-t p-4" style={{ borderColor: 'rgba(26,43,74,0.15)' }}>
                         <div className="flex gap-2 items-center">
                             <button
                                 onClick={() => setShowMoodPicker(!showMoodPicker)}
@@ -262,6 +262,7 @@ export default function MemberChatPage() {
                             <input
                                 ref={inputRef}
                                 className="input flex-1 h-10"
+                                style={{ borderColor: 'rgba(26,43,74,0.20)', color: '#1A2B4A' }}
                                 value={inputText}
                                 onChange={e => setInputText(e.target.value)}
                                 onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
@@ -283,7 +284,7 @@ export default function MemberChatPage() {
                                 ) : <Send size={16} />}
                             </button>
                         </div>
-                        <p className="text-[9px] text-center mt-2" style={{ color: '#a8c5c1' }}>
+                        <p className="text-[9px] text-center mt-2" style={{ color: '#8097B8' }}>
                             Mesajlarınız şifrelenerek saklanır · Yalnızca psikologunuz görebilir
                         </p>
                     </div>

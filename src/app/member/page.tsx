@@ -30,10 +30,10 @@ export default function MemberDashboard() {
     const [appointments, setAppointments] = useState<Appointment[]>([]);
     const [hero, setHero] = useState<HeroProgress | null>(null);
     const [resources, setResources] = useState<ResourceAssignment[]>([]);
-    const [pressedToday, setPressedToday] = useState(false);
     const [showHardDayModal, setShowHardDayModal] = useState(false);
     const [hardDayNote, setHardDayNote] = useState('');
     const [hardDayLoading, setHardDayLoading] = useState(false);
+    const [hardDaySent, setHardDaySent] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -51,7 +51,7 @@ export default function MemberDashboard() {
             );
             setHero(hData);
             setResources((rData.assignments || []).slice(0, 3));
-            setPressedToday(hdData.pressedToday || false);
+            setLoading(false);
             setLoading(false);
         });
     }, []);
@@ -59,10 +59,11 @@ export default function MemberDashboard() {
     const triggerHardDay = async () => {
         setHardDayLoading(true);
         await apiFetch('/api/hard-day', { method: 'POST', body: JSON.stringify({ note: hardDayNote }) });
-        setPressedToday(true);
         setShowHardDayModal(false);
         setHardDayNote('');
         setHardDayLoading(false);
+        setHardDaySent(true);
+        setTimeout(() => setHardDaySent(false), 3000);
     };
 
     const currentLevelIdx = hero ? HERO_LEVELS.findIndex(l => l.name === hero.progress.current_level) : 0;
@@ -88,13 +89,12 @@ export default function MemberDashboard() {
                 {!loading && (
                     <button
                         className="hard-day-btn animate-pulse-glow w-full"
-                        disabled={pressedToday}
-                        onClick={() => !pressedToday && setShowHardDayModal(true)}
+                        onClick={() => setShowHardDayModal(true)}
                     >
-                        {pressedToday ? (
+                        {hardDaySent ? (
                             <div className="flex flex-col items-center">
                                 <span className="text-4xl mb-2">💚</span>
-                                <p className="text-lg font-bold" style={{ color: '#2a9d8f' }}>Bugün bildiriminiz iletildi</p>
+                                <p className="text-lg font-bold" style={{ color: '#2a9d8f' }}>Bildiriminiz iletildi</p>
                                 <p className="text-sm mt-1" style={{ color: '#6b9994' }}>Psikologunuz en kısa sürede size ulaşacak</p>
                             </div>
                         ) : (
@@ -309,6 +309,20 @@ export default function MemberDashboard() {
                     </div>
                 </div>
             )}
+
+            {/* Mobile floating hard-day FAB */}
+            <button
+                className="fixed bottom-6 right-6 z-50 lg:hidden w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg transition-all active:scale-90 animate-pulse-glow"
+                style={{
+                    background: 'linear-gradient(135deg, #c4645a, #d07878)',
+                    color: 'white',
+                    boxShadow: '0 6px 24px rgba(196,100,90,0.45)',
+                }}
+                onClick={() => setShowHardDayModal(true)}
+                aria-label="Zor gün bildirimi"
+            >
+                🆘
+            </button>
         </DashboardShell>
     );
 }

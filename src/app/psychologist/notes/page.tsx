@@ -93,8 +93,8 @@ export default function PsychologistNotesPage() {
             <div className="animate-fade-in">
                 <div className="flex items-center justify-between mb-6">
                     <div>
-                        <h1 className="text-2xl font-bold text-white mb-1">Seans Notları</h1>
-                        <p className="text-zinc-400 text-sm">{notes.length} not • Yalnızca siz görebilirsiniz</p>
+                        <h1 className="text-2xl font-bold mb-1" style={{ color: '#1A2B4A' }}>Seans Notları</h1>
+                        <p className="text-sm" style={{ color: '#3D5475' }}>{notes.length} not • Yalnızca siz görebilirsiniz</p>
                     </div>
                     <button onClick={() => setShowModal(true)} className="btn-primary">
                         <Plus size={16} />
@@ -105,14 +105,14 @@ export default function PsychologistNotesPage() {
                 {/* Filters */}
                 <div className="flex gap-3 mb-5">
                     <div className="relative flex-1 max-w-[240px]">
-                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                        <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#8097B8' }} />
                         <select className="input pl-8" value={searchMember} onChange={e => setSearchMember(e.target.value)}>
                             <option value="">Tüm üyeler</option>
                             {members.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
                         </select>
                     </div>
                     <div className="relative flex-1 max-w-[240px]">
-                        <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+                        <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: '#8097B8' }} />
                         <input className="input pl-8" placeholder="Etikete göre ara..." value={searchTag} onChange={e => setSearchTag(e.target.value)} />
                     </div>
                 </div>
@@ -122,8 +122,8 @@ export default function PsychologistNotesPage() {
                     <div className="space-y-3">{[1, 2, 3].map(i => <div key={i} className="card h-28 animate-pulse" />)}</div>
                 ) : notes.length === 0 ? (
                     <div className="card p-12 text-center">
-                        <FileText size={40} className="text-zinc-700 mx-auto mb-3" />
-                        <p className="text-zinc-500">Not bulunamadı</p>
+                        <FileText size={40} className="mx-auto mb-3" style={{ color: '#8097B8' }} />
+                        <p style={{ color: '#3D5475' }}>Not bulunamadı</p>
                     </div>
                 ) : (
                     <div className="space-y-3">
@@ -133,16 +133,16 @@ export default function PsychologistNotesPage() {
                                 <div key={note.id} className="card p-5">
                                     <div className="flex items-start justify-between gap-4 mb-3">
                                         <div>
-                                            <span className="text-sm font-semibold text-white">{note.member_name}</span>
-                                            <span className="text-xs text-zinc-500 ml-2">
+                                            <span className="text-sm font-semibold" style={{ color: '#1A2B4A' }}>{note.member_name}</span>
+                                            <span className="text-xs ml-2" style={{ color: '#3D5475' }}>
                                                 {note.member_role === 'patient' ? '🟢 Hasta' : '💗 Aile Üyesi'}
                                             </span>
                                         </div>
-                                        <span className="text-xs text-zinc-500 shrink-0">
+                                        <span className="text-xs shrink-0" style={{ color: '#8097B8' }}>
                                             {new Date(note.created_at).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
                                         </span>
                                     </div>
-                                    <p className="text-zinc-300 text-sm leading-relaxed mb-3">{note.content}</p>
+                                    <p className="text-sm leading-relaxed mb-3" style={{ color: '#1A2B4A' }}>{note.content}</p>
                                     {parsedTags.length > 0 && (
                                         <div className="flex flex-wrap gap-1.5">
                                             {parsedTags.map(tag => (
@@ -164,21 +164,21 @@ export default function PsychologistNotesPage() {
                     <div className="modal-overlay" onClick={() => setShowModal(false)}>
                         <div className="modal-box" onClick={e => e.stopPropagation()}>
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-lg font-bold text-white">Yeni Seans Notu</h2>
-                                <button onClick={() => setShowModal(false)} className="text-zinc-500 hover:text-zinc-300">
+                                <h2 className="text-lg font-bold" style={{ color: '#1A2B4A' }}>Yeni Seans Notu</h2>
+                                <button onClick={() => setShowModal(false)} style={{ color: '#8097B8' }}>
                                     <X size={20} />
                                 </button>
                             </div>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-sm text-zinc-300 mb-1.5">Üye</label>
+                                    <label className="block text-sm mb-1.5" style={{ color: '#3D5475' }}>Üye</label>
                                     <select className="input" value={noteMember} onChange={e => setNoteMember(e.target.value)}>
                                         <option value="">Seç...</option>
                                         {members.map(m => <option key={m.id} value={m.id}>{m.name}</option>)}
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm text-zinc-300 mb-1.5">Not İçeriği</label>
+                                    <label className="block text-sm mb-1.5" style={{ color: '#3D5475' }}>Not İçeriği</label>
                                     <textarea
                                         className="input h-32 resize-none"
                                         value={noteContent}
@@ -187,7 +187,7 @@ export default function PsychologistNotesPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm text-zinc-300 mb-1.5">Etiketler</label>
+                                    <label className="block text-sm mb-1.5" style={{ color: '#3D5475' }}>Etiketler</label>
                                     <div className="flex gap-2 mb-2">
                                         <input className="input flex-1" value={noteTagInput} onChange={e => setNoteTagInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && addNoteTag()} placeholder="Etiket ekle..." />
                                         <button onClick={addNoteTag} className="btn-secondary px-3"><Plus size={16} /></button>
@@ -199,7 +199,7 @@ export default function PsychologistNotesPage() {
                                     </div>
                                 </div>
                                 {error && (
-                                    <div className="flex items-center gap-2 text-red-400 bg-red-950/30 border border-red-900/40 rounded-lg p-3">
+                                    <div className="flex items-center gap-2 rounded-lg p-3" style={{ background: 'rgba(224,96,96,0.08)', border: '1px solid rgba(224,96,96,0.22)', color: '#B54040' }}>
                                         <AlertCircle size={14} />
                                         <span className="text-sm">{error}</span>
                                     </div>

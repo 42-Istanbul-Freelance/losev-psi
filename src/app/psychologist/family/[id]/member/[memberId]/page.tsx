@@ -165,12 +165,12 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
         <DashboardShell requiredRole="psychologist">
             <div className="animate-fade-in">
                 {/* Breadcrumb */}
-                <div className="flex items-center gap-2 text-zinc-500 text-sm mb-4">
-                    <Link href="/psychologist" className="hover:text-zinc-300">Ana Panel</Link>
+                <div className="flex items-center gap-2 text-sm mb-4" style={{ color: '#8097B8' }}>
+                    <Link href="/psychologist" className="hover:underline" style={{ color: '#3A7FD5' }}>Ana Panel</Link>
                     <span>›</span>
-                    <Link href={`/psychologist/family/${familyId}`} className="hover:text-zinc-300">Aile Grubu</Link>
+                    <Link href={`/psychologist/family/${familyId}`} className="hover:underline" style={{ color: '#3A7FD5' }}>Aile Grubu</Link>
                     <span>›</span>
-                    <span className="text-white">{member?.name || 'Üye'}</span>
+                    <span style={{ color: '#1A2B4A' }}>{member?.name || 'Üye'}</span>
                 </div>
 
                 {/* Member Header */}
@@ -179,21 +179,21 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                         <div
                             className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold"
                             style={{
-                                background: member.role === 'patient' ? 'rgba(16,185,129,0.15)' : 'rgba(244,114,182,0.15)',
-                                border: `1px solid ${member.role === 'patient' ? '#10b981' : '#f472b6'}40`,
-                                color: member.role === 'patient' ? '#10b981' : '#f472b6'
+                                background: member.role === 'patient' ? 'rgba(77,170,130,0.12)' : 'rgba(232,112,90,0.12)',
+                                border: `1px solid ${member.role === 'patient' ? 'rgba(77,170,130,0.3)' : 'rgba(232,112,90,0.3)'}`,
+                                color: member.role === 'patient' ? '#28785A' : '#B84830'
                             }}
                         >
                             {member.name.charAt(0)}
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold text-white">{member.name}</h1>
-                            <p className="text-zinc-400 text-sm">{member.email}</p>
+                            <h1 className="text-xl font-bold" style={{ color: '#1A2B4A' }}>{member.name}</h1>
+                            <p className="text-sm" style={{ color: '#3D5475' }}>{member.email}</p>
                             <div className="flex items-center gap-2 mt-1">
                                 <span className={`badge ${member.role === 'patient' ? 'badge-green' : 'badge-pink'}`}>
                                     {member.role === 'patient' ? 'Hasta' : member.sub_role || 'Aile Üyesi'}
                                 </span>
-                                {member.age && <span className="text-xs text-zinc-500">{member.age} yaş</span>}
+                                {member.age && <span className="text-xs" style={{ color: '#8097B8' }}>{member.age} yaş</span>}
                                 {hero && (
                                     <span className="badge badge-yellow">{hero.level.badge} {hero.progress.current_level}</span>
                                 )}
@@ -203,7 +203,7 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                 )}
 
                 {/* Tabs */}
-                <div className="flex gap-1 mb-6 bg-zinc-900/50 p-1 rounded-xl border border-zinc-800/50 w-fit">
+                <div className="flex gap-1 mb-6 p-1 rounded-xl border w-fit" style={{ background: 'rgba(58,127,213,0.04)', borderColor: 'rgba(58,127,213,0.10)' }}>
                     {([
                         { key: 'chat', label: 'Sohbet', icon: <MessageSquare size={14} /> },
                         { key: 'resources', label: 'Kaynaklar', icon: <BookOpen size={14} /> },
@@ -212,10 +212,10 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                         <button
                             key={t.key}
                             onClick={() => setTab(t.key)}
-                            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm transition-all ${tab === t.key
-                                    ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
-                                    : 'text-zinc-500 hover:text-zinc-300'
-                                }`}
+                            className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm transition-all border"
+                            style={tab === t.key
+                                ? { background: 'rgba(58,127,213,0.1)', color: '#3A7FD5', borderColor: 'rgba(58,127,213,0.3)' }
+                                : { color: '#3D5475', borderColor: 'transparent' }}
                         >
                             {t.icon} {t.label}
                         </button>
@@ -227,28 +227,28 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                     <div className="card flex flex-col" style={{ height: '65vh' }}>
                         <div className="flex-1 overflow-y-auto p-4 space-y-3">
                             {messages.length === 0 && (
-                                <div className="text-center text-zinc-500 py-8 text-sm">Henüz mesaj yok</div>
+                                <div className="text-center py-8 text-sm" style={{ color: '#8097B8' }}>Henüz mesaj yok</div>
                             )}
                             {messages.map(msg => {
                                 const isSentByPsy = msg.sender_id !== parseInt(memberId);
                                 const moodOption = MOOD_OPTIONS.find(m => m.label === msg.mood_label);
                                 return (
                                     <div key={msg.id} className={`flex flex-col ${isSentByPsy ? 'items-end' : 'items-start'}`}>
-                                        <p className="text-[10px] text-zinc-500 mb-1 px-1">{msg.sender_name}</p>
+                                        <p className="text-[10px] mb-1 px-1" style={{ color: '#8097B8' }}>{msg.sender_name}</p>
                                         {msg.message_type === 'mood' ? (
                                             <div className="chat-bubble-mood">
                                                 <div className="flex items-center gap-2 mb-1">
                                                     <span className="text-xl">{moodOption?.emoji || '💬'}</span>
-                                                    <span className="text-rose-300 font-semibold text-sm">{moodOption?.text || msg.mood_label}</span>
+                                                    <span className="font-semibold text-sm" style={{ color: '#E8705A' }}>{moodOption?.text || msg.mood_label}</span>
                                                 </div>
-                                                <p className="text-zinc-300 text-sm">{msg.content}</p>
+                                                <p className="text-sm" style={{ color: '#1A2B4A' }}>{msg.content}</p>
                                             </div>
                                         ) : (
                                             <div className={isSentByPsy ? 'chat-bubble-sent' : 'chat-bubble-received'}>
                                                 {msg.content}
                                             </div>
                                         )}
-                                        <p className="text-[10px] text-zinc-600 mt-1 px-1">
+                                        <p className="text-[10px] mt-1 px-1" style={{ color: '#8097B8' }}>
                                             {new Date(msg.created_at).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                                         </p>
                                     </div>
@@ -258,7 +258,7 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                         </div>
 
                         {/* Input */}
-                        <div className="border-t border-zinc-800/50 p-3">
+                        <div className="p-3" style={{ borderTop: '1px solid rgba(58,127,213,0.08)' }}>
                             <div className="flex gap-2">
                                 <input
                                     className="input flex-1"
@@ -288,12 +288,12 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                         <div className="space-y-3">
                             {assignments.map(a => (
                                 <div key={a.id} className="card p-4 flex items-center gap-4">
-                                    <div className="p-2 rounded-lg bg-indigo-500/15 text-indigo-400">
+                                    <div className="p-2 rounded-lg" style={{ background: 'rgba(58,127,213,0.1)', color: '#3A7FD5' }}>
                                         <BookOpen size={16} />
                                     </div>
                                     <div className="flex-1">
-                                        <h4 className="font-medium text-white">{a.title}</h4>
-                                        <p className="text-xs text-zinc-500">{new Date(a.assigned_at).toLocaleDateString('tr-TR')} · {a.type}</p>
+                                        <h4 className="font-medium" style={{ color: '#1A2B4A' }}>{a.title}</h4>
+                                        <p className="text-xs" style={{ color: '#8097B8' }}>{new Date(a.assigned_at).toLocaleDateString('tr-TR')} · {a.type}</p>
                                     </div>
                                     {a.completed_at ? (
                                         <span className="badge badge-green"><Check size={10} /> Tamamlandı</span>
@@ -302,13 +302,13 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                                     )}
                                 </div>
                             ))}
-                            {assignments.length === 0 && <p className="text-zinc-500 text-sm">Henüz kaynak atanmamış</p>}
+                            {assignments.length === 0 && <p className="text-sm" style={{ color: '#3D5475' }}>Henüz kaynak atanmamış</p>}
                         </div>
 
                         {showResourceModal && (
                             <div className="modal-overlay" onClick={() => setShowResourceModal(false)}>
                                 <div className="modal-box" onClick={e => e.stopPropagation()}>
-                                    <h2 className="text-lg font-bold text-white mb-4">Kaynak Ata</h2>
+                                    <h2 className="text-lg font-bold mb-4" style={{ color: '#1A2B4A' }}>Kaynak Ata</h2>
                                     <select className="input mb-4" value={selectedResource} onChange={e => setSelectedResource(e.target.value)}>
                                         <option value="">Kaynak seç...</option>
                                         {allResources.map(r => <option key={r.id} value={r.id}>{r.title}</option>)}
@@ -330,19 +330,19 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                             <div className="flex items-center justify-between mb-4">
                                 <div>
                                     <div className="text-4xl mb-2">{hero.level.badge}</div>
-                                    <h2 className="text-xl font-bold text-white">{hero.progress.current_level}</h2>
-                                    <p className="text-zinc-400 text-sm mt-0.5">{hero.level.message}</p>
+                                    <h2 className="text-xl font-bold" style={{ color: '#1A2B4A' }}>{hero.progress.current_level}</h2>
+                                    <p className="text-sm mt-0.5" style={{ color: '#3D5475' }}>{hero.level.message}</p>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-3xl font-bold text-white">{hero.progress.total_points}</p>
-                                    <p className="text-xs text-zinc-500">toplam puan</p>
+                                    <p className="text-3xl font-bold" style={{ color: '#1A2B4A' }}>{hero.progress.total_points}</p>
+                                    <p className="text-xs" style={{ color: '#8097B8' }}>toplam puan</p>
                                 </div>
                             </div>
                             <div className="hero-progress-bar">
                                 <div className="hero-progress-fill" style={{ width: `${progress}%` }} />
                             </div>
                             {nextLevel && (
-                                <p className="text-xs text-zinc-500 mt-2 text-right">
+                                <p className="text-xs mt-2 text-right" style={{ color: '#8097B8' }}>
                                     Sonraki seviye: {nextLevel.name} ({nextLevel.minPoints - hero.progress.total_points} puan)
                                 </p>
                             )}
@@ -359,12 +359,12 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                         <div className="space-y-2">
                             {hero.events.map(ev => (
                                 <div key={ev.id} className="flex items-center gap-3 p-3 card">
-                                    <div className="w-8 h-8 rounded-lg bg-yellow-500/15 flex items-center justify-center text-yellow-400 font-bold text-xs">
+                                    <div className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs" style={{ background: 'rgba(240,185,74,0.12)', color: '#8A6210' }}>
                                         +{ev.points_awarded}
                                     </div>
                                     <div className="flex-1">
-                                        <p className="text-sm text-zinc-200">{ev.note || ev.event_type}</p>
-                                        <p className="text-xs text-zinc-600">{new Date(ev.created_at).toLocaleDateString('tr-TR')}</p>
+                                        <p className="text-sm" style={{ color: '#1A2B4A' }}>{ev.note || ev.event_type}</p>
+                                        <p className="text-xs" style={{ color: '#8097B8' }}>{new Date(ev.created_at).toLocaleDateString('tr-TR')}</p>
                                     </div>
                                 </div>
                             ))}
@@ -373,14 +373,14 @@ export default function MemberDetailPage({ params }: { params: Promise<{ id: str
                         {showBonusModal && (
                             <div className="modal-overlay" onClick={() => setShowBonusModal(false)}>
                                 <div className="modal-box" onClick={e => e.stopPropagation()}>
-                                    <h2 className="text-lg font-bold text-white mb-4">Bonus Puan Ver</h2>
+                                    <h2 className="text-lg font-bold mb-4" style={{ color: '#1A2B4A' }}>Bonus Puan Ver</h2>
                                     <div className="space-y-3">
                                         <div>
-                                            <label className="block text-sm text-zinc-300 mb-1.5">Puan</label>
+                                            <label className="block text-sm mb-1.5" style={{ color: '#3D5475' }}>Puan</label>
                                             <input className="input" type="number" value={bonusPoints} onChange={e => setBonusPoints(e.target.value)} placeholder="örn: 25" />
                                         </div>
                                         <div>
-                                            <label className="block text-sm text-zinc-300 mb-1.5">Not</label>
+                                            <label className="block text-sm mb-1.5" style={{ color: '#3D5475' }}>Not</label>
                                             <input className="input" value={bonusNote} onChange={e => setBonusNote(e.target.value)} placeholder="Neden bu puan veriliyor?" />
                                         </div>
                                         <div className="flex gap-3">

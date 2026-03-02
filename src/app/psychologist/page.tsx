@@ -72,17 +72,20 @@ export default function PsychologistDashboard() {
                 <div className="flex items-start justify-between">
                     <div>
                         <div className="flex items-center gap-2 mb-1">
-                            <div className="w-1 h-6 rounded-full" style={{ background: 'linear-gradient(180deg, #7c3aed, #6366f1)' }} />
-                            <h1 className="text-2xl font-black text-white tracking-tight">
+                            <div className="w-1 h-6 rounded-full" style={{ background: 'linear-gradient(180deg, #3A7FD5, #4DAA82)' }} />
+                            <h1 className="text-2xl font-black tracking-tight" style={{ color: '#1A2B4A' }}>
                                 Merhaba, <span className="grad-text">{user?.name?.split(' ')[0]}</span>
                             </h1>
                         </div>
-                        <p className="text-slate-500 text-sm pl-3">
+                        <p className="text-sm pl-3" style={{ color: '#3D5475' }}>
                             {families.length} aile · {totalMembers} üye takip ediyorsunuz
                         </p>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-slate-600 font-mono bg-slate-950/60 border border-slate-800/40 px-3 py-1.5 rounded-lg">
-                        <Activity size={12} className="text-green-500 animate-glow-pulse" />
+                    <div
+                        className="flex items-center gap-2 text-xs font-mono px-3 py-1.5 rounded-lg border"
+                        style={{ background: 'rgba(77,170,130,0.06)', borderColor: 'rgba(77,170,130,0.2)', color: '#3a9a6a' }}
+                    >
+                        <Activity size={12} className="animate-glow-pulse" style={{ color: '#4DAA82' }} />
                         Çevrimiçi
                     </div>
                 </div>
@@ -90,9 +93,9 @@ export default function PsychologistDashboard() {
                 {/* Quick Stats */}
                 <div className="grid grid-cols-3 gap-3">
                     {[
-                        { label: 'Aile Grubu', value: families.length, color: '#a78bfa', icon: '👨‍👩‍👧‍👦' },
-                        { label: 'Yaklaşan Randevu', value: appointments.length, color: '#67e8f9', icon: '📅' },
-                        { label: 'Bildirim', value: notifications.length, color: '#fda4af', icon: '🔔' },
+                        { label: 'Aile Grubu', value: families.length, color: '#3A7FD5', icon: '👨‍👩‍👧‍👦' },
+                        { label: 'Yaklaşan Randevu', value: appointments.length, color: '#4DAA82', icon: '📅' },
+                        { label: 'Bildirim', value: notifications.length, color: '#E8705A', icon: '🔔' },
                     ].map((s, i) => (
                         <div
                             key={s.label}
@@ -106,7 +109,7 @@ export default function PsychologistDashboard() {
                             >
                                 {s.value}
                             </div>
-                            <p className="text-xs text-slate-600 font-medium">{s.label}</p>
+                            <p className="text-xs font-medium" style={{ color: '#3D5475' }}>{s.label}</p>
                         </div>
                     ))}
                 </div>
@@ -119,7 +122,7 @@ export default function PsychologistDashboard() {
                         <div className="card p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="section-header mb-0">
-                                    <Users size={16} className="text-violet-400" />
+                                    <Users size={16} style={{ color: '#3A7FD5' }} />
                                     Aile Gruplarım
                                 </h2>
                                 <Link href="/psychologist/appointments" className="btn-primary py-1.5 px-3 text-xs">
@@ -128,9 +131,9 @@ export default function PsychologistDashboard() {
                                 </Link>
                             </div>
                             {loading ? (
-                                <div className="space-y-2">{[1, 2].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(13,15,28,0.8)' }} />)}</div>
+                                <div className="space-y-2">{[1, 2].map(i => <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'rgba(58,127,213,0.06)' }} />)}</div>
                             ) : families.length === 0 ? (
-                                <div className="text-center py-8 text-slate-600 text-sm">Henüz aile atanmadı</div>
+                                <div className="text-center py-8 text-sm" style={{ color: '#3D5475' }}>Henüz aile atanmadı</div>
                             ) : (
                                 <div className="space-y-2.5">
                                     {families.map(family => (
@@ -139,27 +142,28 @@ export default function PsychologistDashboard() {
                                             href={`/psychologist/family/${family.id}`}
                                             className="flex items-center gap-4 p-4 rounded-2xl border transition-all group relative overflow-hidden"
                                             style={{
-                                                background: 'rgba(13,15,28,0.7)',
-                                                borderColor: 'rgba(124,58,237,0.1)',
+                                                background: 'rgba(247,252,251,0.8)',
+                                                borderColor: 'rgba(58,127,213,0.12)',
                                             }}
                                         >
                                             <div
                                                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                                                style={{ background: 'linear-gradient(135deg, rgba(124,58,237,0.05), transparent)' }}
+                                                style={{ background: 'linear-gradient(135deg, rgba(58,127,213,0.05), transparent)' }}
                                             />
                                             <div
-                                                className="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-black text-white flex-shrink-0 relative overflow-hidden"
+                                                className="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-black flex-shrink-0 relative overflow-hidden"
                                                 style={{
-                                                    background: 'linear-gradient(135deg, rgba(124,58,237,0.25), rgba(99,102,241,0.15))',
-                                                    border: '1px solid rgba(124,58,237,0.3)',
+                                                    background: 'linear-gradient(135deg, rgba(58,127,213,0.15), rgba(77,170,130,0.10))',
+                                                    border: '1px solid rgba(58,127,213,0.25)',
+                                                    color: '#3A7FD5',
                                                 }}
                                             >
                                                 {family.name.charAt(0)}
-                                                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent" />
+                                                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
                                             </div>
                                             <div className="flex-1 relative z-10">
-                                                <h3 className="font-bold text-white group-hover:text-violet-200 transition-colors">{family.name}</h3>
-                                                <p className="text-xs text-slate-500 mt-0.5">{family.member_count} üye</p>
+                                                <h3 className="font-bold transition-colors" style={{ color: '#1A2B4A' }}>{family.name}</h3>
+                                                <p className="text-xs mt-0.5" style={{ color: '#3D5475' }}>{family.member_count} üye</p>
                                             </div>
                                             <div className="flex -space-x-2 relative z-10">
                                                 {family.members.slice(0, 4).map(m => (
@@ -167,9 +171,9 @@ export default function PsychologistDashboard() {
                                                         key={m.id}
                                                         className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold"
                                                         style={{
-                                                            background: m.role === 'patient' ? 'rgba(52,211,153,0.2)' : 'rgba(249,168,212,0.2)',
-                                                            borderColor: m.role === 'patient' ? '#34d399' : '#f9a8d4',
-                                                            color: m.role === 'patient' ? '#34d399' : '#f9a8d4',
+                                                            background: m.role === 'patient' ? 'rgba(77,170,130,0.15)' : 'rgba(232,112,90,0.15)',
+                                                            borderColor: m.role === 'patient' ? '#4DAA82' : '#E8705A',
+                                                            color: m.role === 'patient' ? '#28785A' : '#B84830',
                                                         }}
                                                         title={m.name}
                                                     >
@@ -177,7 +181,7 @@ export default function PsychologistDashboard() {
                                                     </div>
                                                 ))}
                                             </div>
-                                            <ArrowRight size={14} className="text-slate-700 group-hover:text-violet-400 group-hover:translate-x-1 transition-all relative z-10" />
+                                            <ArrowRight size={14} className="group-hover:translate-x-1 transition-all relative z-10" style={{ color: '#8097B8' }} />
                                         </Link>
                                     ))}
                                 </div>
@@ -188,33 +192,33 @@ export default function PsychologistDashboard() {
                         <div className="card p-6">
                             <div className="flex items-center justify-between mb-4">
                                 <h2 className="section-header mb-0">
-                                    <Calendar size={16} className="text-cyan-400" />
+                                    <Calendar size={16} style={{ color: '#4DAA82' }} />
                                     Yaklaşan Randevular
                                 </h2>
-                                <Link href="/psychologist/appointments" className="text-xs text-violet-400 hover:text-violet-300 flex items-center gap-1">
+                                <Link href="/psychologist/appointments" className="text-xs flex items-center gap-1" style={{ color: '#3A7FD5' }}>
                                     Tümü <ArrowRight size={12} />
                                 </Link>
                             </div>
                             {appointments.length === 0 ? (
-                                <div className="text-center py-6 text-slate-600 text-sm">Yaklaşan randevu yok</div>
+                                <div className="text-center py-6 text-sm" style={{ color: '#3D5475' }}>Yaklaşan randevu yok</div>
                             ) : (
                                 <div className="space-y-2">
                                     {appointments.map(apt => (
                                         <div
                                             key={apt.id}
                                             className="flex items-center gap-3 p-3.5 rounded-xl border"
-                                            style={{ background: 'rgba(13,15,28,0.6)', borderColor: 'rgba(124,58,237,0.08)' }}
+                                            style={{ background: 'rgba(247,252,251,0.8)', borderColor: 'rgba(58,127,213,0.10)' }}
                                         >
                                             <span className="text-xl">{apt.type === 'video' ? '📹' : '💬'}</span>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-semibold text-slate-200 truncate">{apt.title}</p>
-                                                <p className="text-xs text-slate-600">{apt.member_name} · {apt.family_name}</p>
+                                                <p className="text-sm font-semibold truncate" style={{ color: '#1A2B4A' }}>{apt.title}</p>
+                                                <p className="text-xs" style={{ color: '#3D5475' }}>{apt.member_name} · {apt.family_name}</p>
                                             </div>
                                             <div className="text-right shrink-0">
-                                                <p className="text-xs font-medium text-violet-400">
+                                                <p className="text-xs font-medium" style={{ color: '#3A7FD5' }}>
                                                     {new Date(apt.scheduled_at).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short' })}
                                                 </p>
-                                                <p className="text-xs text-slate-600">
+                                                <p className="text-xs" style={{ color: '#8097B8' }}>
                                                     {new Date(apt.scheduled_at).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}
                                                 </p>
                                             </div>
@@ -229,12 +233,12 @@ export default function PsychologistDashboard() {
                     <div className="space-y-5">
                         <div className="card p-5">
                             <h2 className="section-header">
-                                <Bell size={15} className="text-fuchsia-400" />
+                                <Bell size={15} style={{ color: '#E8705A' }} />
                                 Bildirimler
                                 {notifications.length > 0 && (
                                     <span
                                         className="ml-auto text-xs font-bold px-2 py-0.5 rounded-full"
-                                        style={{ background: 'rgba(244,114,182,0.15)', color: '#f9a8d4', border: '1px solid rgba(244,114,182,0.25)' }}
+                                        style={{ background: 'rgba(232,112,90,0.1)', color: '#B84830', border: '1px solid rgba(232,112,90,0.22)' }}
                                     >
                                         {notifications.length}
                                     </span>
@@ -243,7 +247,7 @@ export default function PsychologistDashboard() {
                             {notifications.length === 0 ? (
                                 <div className="text-center py-4">
                                     <div className="text-2xl mb-1.5">🎉</div>
-                                    <p className="text-slate-600 text-xs">Okunmamış bildirim yok</p>
+                                    <p className="text-xs" style={{ color: '#3D5475' }}>Okunmamış bildirim yok</p>
                                 </div>
                             ) : (
                                 <div className="space-y-2">
@@ -251,14 +255,14 @@ export default function PsychologistDashboard() {
                                         <div
                                             key={n.id}
                                             className="p-3 rounded-xl border group cursor-pointer"
-                                            style={{ background: 'rgba(13,15,28,0.7)', borderColor: 'rgba(124,58,237,0.1)' }}
+                                            style={{ background: 'rgba(247,252,251,0.8)', borderColor: 'rgba(58,127,213,0.10)' }}
                                             onClick={() => markRead(n.id)}
                                         >
                                             <div className="flex items-start justify-between gap-2 mb-1">
-                                                <p className="text-xs font-semibold text-slate-200">{n.title}</p>
-                                                <button className="text-slate-700 group-hover:text-emerald-400 transition-colors text-sm">✓</button>
+                                                <p className="text-xs font-semibold" style={{ color: '#1A2B4A' }}>{n.title}</p>
+                                                <button className="transition-colors text-sm" style={{ color: '#8097B8' }}>✓</button>
                                             </div>
-                                            <p className="text-xs text-slate-500 leading-relaxed">{n.body}</p>
+                                            <p className="text-xs leading-relaxed" style={{ color: '#3D5475' }}>{n.body}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -268,14 +272,14 @@ export default function PsychologistDashboard() {
                         {/* Quick actions */}
                         <div className="card p-5">
                             <h2 className="section-header">
-                                <Zap size={15} className="text-yellow-400" />
+                                <Zap size={15} style={{ color: '#F0B94A' }} />
                                 Hızlı İşlem
                             </h2>
                             <div className="space-y-1.5">
                                 {[
-                                    { href: '/psychologist/appointments', label: 'Yeni Randevu', icon: '📅', color: '#67e8f9' },
-                                    { href: '/psychologist/notes', label: 'Seans Notu', icon: '📝', color: '#a78bfa' },
-                                    { href: '/psychologist/alerts', label: 'Zor Gün Alertleri', icon: '🆘', color: '#fda4af' },
+                                    { href: '/psychologist/appointments', label: 'Yeni Randevu', icon: '📅', color: '#4DAA82' },
+                                    { href: '/psychologist/notes', label: 'Seans Notu', icon: '📝', color: '#3A7FD5' },
+                                    { href: '/psychologist/alerts', label: 'Zor Gün Alertleri', icon: '🆘', color: '#E8705A' },
                                 ].map(item => (
                                     <Link
                                         key={item.href}

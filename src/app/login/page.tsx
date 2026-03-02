@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Heart, Lock, Mail, AlertCircle, Eye, EyeOff, Leaf } from 'lucide-react';
+import { Lock, Mail, AlertCircle, Eye, EyeOff, Leaf } from 'lucide-react';
+import LosevLogo from '@/components/LosevLogo';
 
 export default function LoginPage() {
     const { login } = useAuth();
@@ -79,12 +80,12 @@ export default function LoginPage() {
                                 boxShadow: '0 8px 28px rgba(42,157,143,0.3), inset 0 1px 0 rgba(255,255,255,0.25)',
                             }}
                         >
-                            <Heart size={26} className="text-white relative z-10" />
+                            <LosevLogo size={32} className="relative z-10" />
                             <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
                         </div>
                     </div>
                     <h1 className="text-4xl font-black tracking-tight">
-                        <span style={{ color: '#1e3a35' }}>LÖSEV</span>
+                        <span style={{ color: '#E30613' }}>LÖ</span><span style={{ color: '#1e3a35' }}>SEV</span>
                         <span className="grad-text"> PSİ</span>
                     </h1>
                     <p className="text-sm mt-1.5 font-medium" style={{ color: '#6b9994' }}>Psikolojik Destek Platformu</p>
