@@ -118,7 +118,7 @@ interface OnboardingModalProps {
     role: string;
 }
 
-const STORAGE_KEY = 'losev_onboarding_seen';
+const STORAGE_KEY = 'losev_onboarding_vFinal_2';
 
 export default function OnboardingModal({ role }: OnboardingModalProps) {
     const [visible, setVisible] = useState(false);
@@ -254,8 +254,9 @@ export default function OnboardingModal({ role }: OnboardingModalProps) {
                                     </svg>
                                 )}
                             </div>
-                            <span className="text-xs font-bold" style={{ color: '#8097B8' }}>Bir daha gösterme</span>
+                            <span className="text-sm font-bold select-none" style={{ color: '#1A2B4A' }}>Bir daha gösterme</span>
                         </label>
+                        <p className="text-[10px] ml-7 -mt-1" style={{ color: '#8097B8' }}>Bu kutucuğu işaretleyip kapatırsanız bilgilendirme ekranı bir daha açılmayacaktır.</p>
                     </div>
 
                     <div className="flex items-center justify-between gap-3">
