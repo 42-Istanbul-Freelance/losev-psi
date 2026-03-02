@@ -133,8 +133,8 @@ export default function OnboardingModal({ role }: OnboardingModalProps) {
         : allCards.filter(c => [1, 2, 3, 5].includes(c.id));
 
     useEffect(() => {
-        const seen = localStorage.getItem(STORAGE_KEY);
-        if (!seen) setVisible(true);
+        // Her girişte gösterilsin istendiği için kontrolü kaldırdım
+        setVisible(true);
     }, []);
 
     // Lock body scroll
@@ -148,7 +148,7 @@ export default function OnboardingModal({ role }: OnboardingModalProps) {
     }, [visible]);
 
     const close = useCallback(() => {
-        localStorage.setItem(STORAGE_KEY, 'true');
+        // Artık localStorage'a kaydetmiyoruz, her login'de tekrar çıkacak
         setVisible(false);
     }, []);
 
