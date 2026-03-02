@@ -310,19 +310,6 @@ export default function MemberDashboard() {
                 </div>
             )}
 
-            {/* Mobile floating hard-day FAB */}
-            <button
-                className="fixed bottom-6 right-6 z-50 lg:hidden w-14 h-14 rounded-full flex items-center justify-center text-2xl shadow-lg transition-all active:scale-90 animate-pulse-glow"
-                style={{
-                    background: 'linear-gradient(135deg, #c4645a, #d07878)',
-                    color: 'white',
-                    boxShadow: '0 6px 24px rgba(196,100,90,0.45)',
-                }}
-                onClick={() => setShowHardDayModal(true)}
-                aria-label="Zor gün bildirimi"
-            >
-                🆘
-            </button>
         </DashboardShell>
     );
 }
